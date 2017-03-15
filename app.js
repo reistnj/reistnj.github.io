@@ -42,7 +42,7 @@
             .otherwise({ redirectTo: '/login' });
     }
 
-    run.$inject = ['$rootScope', '$location', '$cookies', '$http'];
+    run.$inject = ['$rootScope', '$location', '$cookies', '$http', '$window'];
     function run($rootScope, $location, $cookies, $http) {
         // keep user logged in after page refresh
         $rootScope.globals = $cookies.getObject('globals') || {};
@@ -57,6 +57,13 @@
             if (restrictedPage && !loggedIn) {
                 $location.path('/login');
             }
+        });
+    }
+//Code taken from http://blog.nishihara.me/javascript/2015/08/28/universal-google-analytics-angularjs-ngroute/ 
+    function run($rootScope, $location, $window) {
+        $rootScope.$on('$routeChangeSuccess', function (event) {
+            if (!window.ga)return;
+            $window.ga('send', 'pageview', { page: $location.path() });
         });
     }
 
