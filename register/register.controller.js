@@ -12,17 +12,26 @@
         vm.register = register;
 
         function register() {
-            vm.dataLoading = true;
-            UserService.Create(vm.user)
-                .then(function (response) {
-                    if (response.success) {
-                        FlashService.Success('Registration successful', true);
-                        $location.path('/login');
-                    } else {
-                        FlashService.Error(response.message);
-                        vm.dataLoading = false;
-                    }
-                });
+            http.post('http://54.152.50.236/Register.php',JSON.stringify(vm.user)).then(function(success){$location.path('/login'),
+                FlashService.Success('Registration successful', true);
+            },function(error){
+                FlashService.Error(response.message);
+                vm.dataLoading = false;
+                })
+            };
+
+        //Original register function
+            //vm.dataLoading = true;
+            //UserService.Create(vm.user)
+                //.then(function (response) {
+                    //if (response.success) {
+                        //FlashService.Success('Registration successful', true);
+                        //$location.path('/login');
+                    //} else {
+                        //FlashService.Error(response.message);
+                        //vm.dataLoading = false;
+                    //}
+                //});
         }
     }
 

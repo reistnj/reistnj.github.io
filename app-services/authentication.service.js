@@ -31,13 +31,14 @@
                         callback(response);
                     });
             }, 1000);
-
+            
             /* Use this for real authentication
-             ----------------------------------------------*/
-            //$http.post('http://54.152.50.236/Login.php', { username: username, password: password}
-            //    .success(function (response) {
-            //        callback(response);
-            //    });
+             ----------------------------------------------
+            $http.post('http://54.152.50.236/Login.php', { username: username, password: password}
+                .success(function (response) {
+                    response = {success: true}
+                    callback(response);
+                }); */
 
         }
 
